@@ -1,0 +1,8 @@
+<%- include('../partials/header') %>
+<div class="form-panel"><div class="form-intro"><div class="form-icon">♙</div><div><h2><%= title %></h2><p>Member details are used for book circulation and records.</p></div></div><form action="<%= action %>" method="post"><% if(method==='PUT'){ %><input type="hidden" name="_method" value="PUT"><% } %>
+<div class="grid two"><label>Full name *<input name="name" required value="<%= member.name || '' %>" placeholder="e.g. Aarav Sharma"></label><label>Email address *<input type="email" name="email" required value="<%= member.email || '' %>" placeholder="member@example.com"></label></div>
+<div class="grid two"><label>Phone<input name="phone" value="<%= member.phone || '' %>" placeholder="10-digit mobile number"></label><label>Membership ID<input name="membershipId" value="<%= member.membershipId || '' %>" placeholder="Auto-generated if blank"></label></div>
+<label>Address<textarea name="address" rows="4" placeholder="Residential address"><%= member.address || '' %></textarea></label>
+<% if(method==='PUT'){ %><label class="check"><input type="checkbox" name="active" <%= member.active?'checked':'' %>> Member is active</label><% } %>
+<div class="form-actions"><a class="btn" href="/members">Cancel</a><button class="btn primary" type="submit"><%= method==='PUT'?'Save Changes':'Register Member' %></button></div></form></div>
+<%- include('../partials/footer') %>

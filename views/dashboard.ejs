@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<section class="hero"><div><span class="hero-kicker">LIBRARY OVERVIEW</span><h2>Everything under control.</h2><p>Track your collection, members and circulation activity from one place.</p></div><a class="btn light" href="/books/new">＋ Add Book</a></section>
+<section class="stats-grid">
+  <div class="stat-card"><div class="stat-icon purple">▤</div><div><span>Total Titles</span><strong><%= stats.books %></strong><small><%= stats.totalCopies %> total copies</small></div></div>
+  <div class="stat-card"><div class="stat-icon blue">♙</div><div><span>Active Members</span><strong><%= stats.members %></strong><small>Registered members</small></div></div>
+  <div class="stat-card"><div class="stat-icon green">↔</div><div><span>Books Issued</span><strong><%= stats.issued %></strong><small><%= stats.availableCopies %> copies available</small></div></div>
+  <div class="stat-card"><div class="stat-icon red">!</div><div><span>Overdue</span><strong class="danger-number"><%= stats.overdue %></strong><small>Requires attention</small></div></div>
+</section>
+<section class="content-grid">
+  <div class="panel"><div class="panel-head"><div><h2>Recent activity</h2><p>Latest circulation events</p></div><a href="/transactions">View all →</a></div>
+    <div class="table-wrap"><table><thead><tr><th>Book</th><th>Member</th><th>Issued</th><th>Due</th><th>Status</th></tr></thead><tbody>
+      <% recent.forEach(t=>{ %><tr><td><div class="book-cell"><div class="mini-cover">▤</div><div><b><%= t.book?.title || 'Deleted book' %></b><small><%= t.book?.author || '—' %></small></div></div></td><td><%= t.member?.name || 'Deleted member' %></td><td><%= new Date(t.issueDate).toLocaleDateString('en-IN') %></td><td><%= new Date(t.dueDate).toLocaleDateString('en-IN') %></td><td><span class="badge <%= t.status.toLowerCase() %>"><%= t.status %></span></td></tr><% }) %>
+      <% if(!recent.length){ %><tr><td colspan="5" class="empty"><div class="empty-icon">↔</div><b>No activity yet</b><small>Issue a book to see transactions here.</small></td></tr><% } %>
+    </tbody></table></div>
+  </div>
+  <div class="panel quick-panel"><div class="panel-head"><div><h2>Quick actions</h2><p>Common library tasks</p></div></div><a class="quick-action" href="/books/new"><span>＋</span><div><b>Add a new book</b><small>Create a catalog record</small></div><i>→</i></a><a class="quick-action" href="/members/new"><span>♙</span><div><b>Register member</b><small>Add a library member</small></div><i>→</i></a><a class="quick-action" href="/transactions/new"><span>↗</span><div><b>Issue a book</b><small>Start a circulation record</small></div><i>→</i></a><a class="quick-action" href="/transactions?status=Overdue"><span>!</span><div><b>Review overdue</b><small><%= stats.overdue %> currently overdue</small></div><i>→</i></a></div>
+</section>
+<%- include('partials/footer') %>

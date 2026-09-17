@@ -1,0 +1,8 @@
+<%- include('../partials/header') %>
+<div class="form-panel"><div class="form-intro"><div class="form-icon">▤</div><div><h2><%= title %></h2><p>Keep the catalog information accurate and up to date.</p></div></div><form action="<%= action %>" method="post"><% if(method==='PUT'){ %><input type="hidden" name="_method" value="PUT"><% } %>
+<div class="grid two"><label>Book title *<input name="title" required value="<%= book.title || '' %>" placeholder="e.g. Clean Code"></label><label>Author *<input name="author" required value="<%= book.author || '' %>" placeholder="e.g. Robert C. Martin"></label></div>
+<div class="grid three"><label>ISBN *<input name="isbn" required value="<%= book.isbn || '' %>" placeholder="9780132350884"></label><label>Category<input name="category" value="<%= book.category || 'General' %>" placeholder="Programming"></label><label>Published year<input type="number" name="publishedYear" min="1000" max="2100" value="<%= book.publishedYear || new Date().getFullYear() %>"></label></div>
+<div class="grid two"><label>Publisher<input name="publisher" value="<%= book.publisher || '' %>" placeholder="Publisher name"></label><label>Total copies *<input type="number" name="totalCopies" min="1" required value="<%= book.totalCopies || 1 %>"></label></div>
+<label>Cover image URL <input name="coverUrl" value="<%= book.coverUrl || '' %>" placeholder="https://..."></label><label>Description<textarea name="description" rows="5" placeholder="Short description of the book"><%= book.description || '' %></textarea></label>
+<div class="form-actions"><a class="btn" href="/books">Cancel</a><button class="btn primary" type="submit"><%= method==='PUT'?'Save Changes':'Add Book' %></button></div></form></div>
+<%- include('../partials/footer') %>

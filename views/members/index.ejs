@@ -1,0 +1,7 @@
+<%- include('../partials/header') %>
+<div class="page-toolbar"><form class="search-box" action="/members" method="get"><span>⌕</span><input name="q" value="<%= q %>" placeholder="Search name, email, phone or membership ID..."><button>Search</button></form><a class="btn primary" href="/members/new">＋ Add Member</a></div>
+<div class="panel"><div class="table-wrap"><table><thead><tr><th>Member</th><th>Membership ID</th><th>Phone</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+<% members.forEach(member=>{ %><tr><td><div class="member-cell"><span class="avatar"><%= member.name.charAt(0).toUpperCase() %></span><div><b><%= member.name %></b><small><%= member.email %></small></div></div></td><td><code><%= member.membershipId %></code></td><td><%= member.phone || '—' %></td><td><%= new Date(member.joinedAt).toLocaleDateString('en-IN') %></td><td><span class="badge <%= member.active?'active':'inactive' %>"><%= member.active?'Active':'Inactive' %></span></td><td><div class="actions"><a href="/members/<%= member._id %>/edit">Edit</a><form action="/members/<%= member._id %>?_method=DELETE" method="post" onsubmit="return confirm('Delete this member?')"><button class="link danger-text">Delete</button></form></div></td></tr><% }) %>
+<% if(!members.length){ %><tr><td colspan="6" class="empty"><div class="empty-icon">♙</div><b>No members found</b><small>Add your first library member.</small></td></tr><% } %>
+</tbody></table></div></div>
+<%- include('../partials/footer') %>

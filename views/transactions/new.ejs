@@ -1,0 +1,9 @@
+<%- include('../partials/header') %>
+<div class="form-panel narrow"><div class="form-intro"><div class="form-icon">↗</div><div><h2>Issue a book</h2><p>Create a new circulation transaction.</p></div></div>
+<% if(!books.length || !members.length){ %><div class="info">You need at least one <%= !books.length?'available book':'' %><%= (!books.length && !members.length)?' and ':'' %><%= !members.length?'active member':'' %> before issuing a book.</div><% } %>
+<form action="/transactions/issue" method="post"><label>Select book *<select name="bookId" required <%= !books.length?'disabled':'' %>><option value="">Choose an available book</option><% books.forEach(book=>{ %><option value="<%= book._id %>"><%= book.title %> — <%= book.author %> (<%= book.availableCopies %> available)</option><% }) %></select></label>
+<label>Select member *<select name="memberId" required <%= !members.length?'disabled':'' %>><option value="">Choose an active member</option><% members.forEach(member=>{ %><option value="<%= member._id %>"><%= member.name %> — <%= member.membershipId %></option><% }) %></select></label>
+<label>Due date *<input id="dueDate" type="date" name="dueDate" required></label>
+<div class="info">Standard loan period is 14 days. Late returns are charged at <b>₹5 per day</b>.</div>
+<div class="form-actions"><a class="btn" href="/transactions">Cancel</a><button class="btn primary" type="submit" <%= (!books.length||!members.length)?'disabled':'' %>>Issue Book</button></div></form></div>
+<%- include('../partials/footer') %>

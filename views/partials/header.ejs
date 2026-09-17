@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LibTrack Library Management System">
+  <title><%= title %> | LibTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">L</span><div><strong>LibTrack</strong><small>Library Suite</small></div></div>
+    <nav>
+      <a class="nav-link <%= path==='/'?'active':'' %>" href="/"><span>▦</span> Dashboard</a>
+      <a class="nav-link <%= path.startsWith('/books')?'active':'' %>" href="/books"><span>▤</span> Books</a>
+      <a class="nav-link <%= path.startsWith('/members')?'active':'' %>" href="/members"><span>♙</span> Members</a>
+      <a class="nav-link <%= path.startsWith('/transactions')?'active':'' %>" href="/transactions"><span>↔</span> Transactions</a>
+    </nav>
+    <div class="sidebar-footer"><div class="status-dot"></div><div><b>Library system</b><small>MongoDB powered</small></div></div>
+  </aside>
+  <main class="main-content">
+    <header class="topbar">
+      <div><div class="eyebrow">LIBRARY MANAGEMENT SYSTEM</div><h1><%= title %></h1></div>
+      <a class="btn primary" href="/transactions/new"><span>＋</span> Issue Book</a>
+    </header>
+    <% if (typeof success !== 'undefined' && success) { %><div class="alert success"><span>✓</span><%= success %></div><% } %>
